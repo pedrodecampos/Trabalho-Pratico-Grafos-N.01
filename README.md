@@ -1,6 +1,6 @@
-                            #Trabalho Prático N.01
+#Trabalho Prático N.01
 
-Alunos: Pedro Afonso, Lucas, Lucca.
+Alunos: Pedro Afonso, Lucas, Lucca
 Professor: Zenilton Kleber Gonçalves do Patrocínio Júnior
 
 Algoritmos baseados em grafos são usados em diversas áreas para auxiliar nas resoluções de inúmeros
