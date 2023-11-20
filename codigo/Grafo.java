@@ -1,32 +1,38 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
-
 public class Grafo {
-    private List<Vertice> vertices;
-    private List<Aresta> arestas;
+    // grafo em si
+    private int numVertices;
+    private List<LinkedList<Integer>> listaAdjacencia;
 
-    public Grafo() {
-        vertices = new ArrayList<>();
-        arestas = new ArrayList<>();
+    //
+    public Grafo(int numVertices) {
+        this.numVertices = numVertices;
+        listaAdjacencia = new ArrayList<>(numVertices);
+        for (int i = 0; i < numVertices; i++) {
+            listaAdjacencia.add(new LinkedList<>());
+        }
     }
 
-    public void adicionarVertice(Vertice vertice) {
-        vertices.add(vertice);
+    public void adicionarAresta(int origem, int destino) {
+        if (origem >= 0 && origem < numVertices && destino >= 0 && destino < numVertices) {
+            listaAdjacencia.get(origem).add(destino);
+        } else {
+            throw new IllegalArgumentException("Vertices fora do intervalo valido.");
+        }
     }
 
-    public void adicionarAresta(Vertice origem, Vertice destino) {
-        arestas.add(new Aresta(origem, destino));
-        arestas.add(new Aresta(destino, origem)); // Não direcionado, adicionamos a aresta no sentido contrário também
+    public void imprimirListaAdjacencia() {
+        System.out.println("Lista de Adjacência do Grafo:");
+
+        for (int i = 0; i < numVertices; i++) {
+            System.out.print(i + ": ");
+            for (int vizinho : listaAdjacencia.get(i)) {
+                System.out.print(vizinho + " ");
+            }
+            System.out.println();
+        }
     }
-
-    public List<Vertice> getVertices() {
-        return vertices;
-    }
-
-    public List<Aresta> getArestas() {
-        return arestas;
-    }
-
-
 }
