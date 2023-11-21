@@ -24,6 +24,14 @@ public class Grafo {
         }
     }
 
+    public List<LinkedList<Integer>> getListaAdjacencia() {
+        return listaAdjacencia;
+    }
+
+    public int getNumVertices() {
+        return numVertices;
+    }
+
     public void imprimirListaAdjacencia() {
         System.out.println("Lista de Adjacência do Grafo:");
 
