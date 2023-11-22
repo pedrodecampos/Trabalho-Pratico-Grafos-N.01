@@ -32,6 +32,38 @@ public class Grafo {
         return numVertices;
     }
 
+    public int getGrau(int v){
+        return listaAdjacencia.get(v).size();
+    }
+
+    public boolean verificarEureliano(){
+        for(int i=0;i<numVertices;i++){
+            if(getGrau(i)%2 !=0){
+                return false;
+            }
+        }      return true;
+
+    }
+
+    public boolean verificarSemiAureliano(){
+        int aux=0;
+        for (int i =0; i<numVertices;i++){
+            if(getGrau(i)%2!=0){
+                aux++;
+            }
+        }
+        return aux ==2;
+    }
+
+    public boolean verificarNaoAureliano(){
+        for(int i = 0;i<numVertices;i++){
+            if(getGrau(i)%2!=0){
+                return true;
+            }
+        }
+    return false;
+}
+
     public void imprimirListaAdjacencia() {
         System.out.println("Lista de Adjacência do Grafo:");
 
@@ -40,7 +72,6 @@ public class Grafo {
             for (int vizinho : listaAdjacencia.get(i)) {
                 System.out.print(vizinho + " ");
             }
-            System.out.println();
         }
     }
 }
