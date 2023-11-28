@@ -19,6 +19,7 @@ public class Grafo {
     public void adicionarAresta(int origem, int destino) {
         if (origem >= 0 && origem < numVertices && destino >= 0 && destino < numVertices) {
             listaAdjacencia.get(origem).add(destino);
+            listaAdjacencia.get(destino).add(origem);
         } else {
             throw new IllegalArgumentException("Vertices fora do intervalo valido.");
         }
@@ -26,6 +27,9 @@ public class Grafo {
 
     public List<LinkedList<Integer>> getListaAdjacencia() {
         return listaAdjacencia;
+    }
+    public LinkedList<Integer> getAdjacentes(int index) {
+        return this.listaAdjacencia.get(index);
     }
 
     public int getNumVertices() {
