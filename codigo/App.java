@@ -11,7 +11,7 @@ public class App {
         grafo.adicionarAresta(3, 4);
         grafo.adicionarAresta(4, 0);
         grafo.adicionarAresta(5, 0);
-        
+        grafo.adicionarAresta(5, 4);
         grafo.imprimirListaAdjacencia();
 
         metodoNeive.testConectividade(grafo);
@@ -22,5 +22,9 @@ public class App {
         for (int[] ponte : pontes) {
             System.out.println(ponte[0] + " - " + ponte[1]);
         }
+
+        Fleury fleury = new Fleury(grafo);
+        fleury.encontrarCaminhoEuleriano();
+
     }
 }
