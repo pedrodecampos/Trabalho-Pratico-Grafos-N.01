@@ -1,42 +1,28 @@
 import java.util.ArrayList;
 import java.util.List;
 
-
-public class Fleury {
+public class FleuryTarjan {
 
     private Grafo grafo;
 
-    public Fleury(Grafo grafo) {
+    public FleuryTarjan(Grafo grafo) {
         this.grafo = grafo;
+    }
+
+    private boolean isPonte(int u, int v) {
+        List<int[]> pontes = Tarjan.encontrarPontes(grafo);
+
+        for (int[] ponte : pontes) {
+            if ((ponte[0] == u && ponte[1] == v) || (ponte[0] == v && ponte[1] == u)) {
+                return true; // A aresta (u, v) é uma ponte
+            }
+        }
+
+        return false;
     }
 
     private boolean isArestaValida(int u, int v) {
         return grafo.getListaAdjacencia().get(u).size() != 0 && grafo.getListaAdjacencia().get(v).size() != 0;
-    }
-
-    private boolean isPonte(int u, int v) {
-        Naive naive = new Naive();
-
-        if (u == 0) {
-            grafo.getListaAdjacencia().get(u).remove((Integer) v);
-            grafo.getListaAdjacencia().get(v).remove((Integer) u);
-
-            boolean conexo = naive.conectividade(grafo);
-            grafo.getListaAdjacencia().get(u).add(v);
-            grafo.getListaAdjacencia().get(v).add(u);
-
-            if (!conexo) {
-                return true; // A aresta (u, v) é uma ponte
-            }
-        } else {
-            List<int[]> pontes = Tarjan.encontrarPontes(grafo);
-            for (int[] ponte : pontes) {
-                if ((ponte[0] == u && ponte[1] == v) || (ponte[0] == v && ponte[1] == u)) {
-                    return true; // A aresta (u, v) é uma ponte
-                }
-            }
-        }
-        return false;
     }
 
     private void removerAresta(int u, int v) {
@@ -45,7 +31,6 @@ public class Fleury {
     }
 
     private void imprimirCaminhoEuleriano(int inicio) {
-        System.out.print("Caminho Euleriano: ");
         DFS(inicio);
         System.out.println();
     }
@@ -60,7 +45,7 @@ public class Fleury {
             removerAresta(v, proxAresta);
             DFS(proxAresta);
         } else {
-            for (int neighbor : vizinhos) {
+            for (int neighbor : grafo.getListaAdjacencia().get(v)) {
                 if (isArestaValida(v, neighbor) && !isPonte(v, neighbor)) {
                     removerAresta(v, neighbor);
                     DFS(neighbor);

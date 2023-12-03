@@ -7,7 +7,7 @@ public class App {
         Grafo grafo;
         Scanner scanner = new Scanner(System.in);
         int escolha;
-        
+
         do {
             System.out.println("=== Menu ===");
             System.out.println("1. Totalmente Aleatorio");
@@ -55,13 +55,12 @@ public class App {
         scanner.close();
     }
 
-
-    public static void menuFleury(Scanner scanner, Grafo grafo){
+    public static void menuFleury(Scanner scanner, Grafo grafo) {
         long tempoInic;
         long tempoFim;
         int escolha;
-    do {
-    System.out.println("=== Fleury ===");
+        do {
+            System.out.println("=== Fleury ===");
             System.out.println("1. Com Naive");
             System.out.println("2. Com Tarjan");
             System.out.println("0. Sair");
@@ -71,17 +70,24 @@ public class App {
 
             switch (escolha) {
                 case 1:
-                System.out.println(grafo.verificarEureliano());
-                    Fleury fleury = new Fleury(grafo);
+                    System.out.println(grafo.verificarEureliano());
+                    FleuryNaive fleury = new FleuryNaive(grafo);
                     tempoInic = Calendar.getInstance().getTimeInMillis();
                     fleury.encontrarCaminhoEuleriano();
                     tempoFim = Calendar.getInstance().getTimeInMillis();
-                    System.out.println("Tempo incio em milisegundos: "+tempoInic);
-                    System.out.println("Tempo fim em milisegundos: "+tempoFim);
-                    System.out.println("Tempo de execucao em milisegundos: "+(tempoFim-tempoInic)+"\n");
+                    System.out.println("Tempo incio em milisegundos: " + tempoInic);
+                    System.out.println("Tempo fim em milisegundos: " + tempoFim);
+                    System.out.println("Tempo de execucao em milisegundos: " + (tempoFim - tempoInic) + "\n");
                     return;
                 case 2:
-                    System.out.println("Ainda nao implementado");
+                    System.out.println(grafo.verificarEureliano());
+                    FleuryTarjan tarjan = new FleuryTarjan(grafo);
+                    tempoInic = Calendar.getInstance().getTimeInMillis();
+                    tarjan.encontrarCaminhoEuleriano();
+                    tempoFim = Calendar.getInstance().getTimeInMillis();
+                    System.out.println("Tempo incio em milisegundos: " + tempoInic);
+                    System.out.println("Tempo fim em milisegundos: " + tempoFim);
+                    System.out.println("Tempo de execucao em milisegundos: " + (tempoFim - tempoInic) + "\n");
                     break;
                 case 0:
                     System.out.println("Voltando!\n");
@@ -93,4 +99,3 @@ public class App {
         } while (escolha != 0);
     }
 }
-
