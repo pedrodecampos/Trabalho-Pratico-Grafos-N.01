@@ -1,11 +1,11 @@
 import java.util.Random;
 import java.util.LinkedList;
-import java.util.List;
+
 
 public class Gerador {
     public Random random = new Random();
     
-    public Grafo aleatorioSimples(int nVertices, int nArestas){
+    public Grafo aleatorioSimples(int nVertices, int nArestas) throws IllegalArgumentException{
         if (nArestas > nVertices * (nVertices - 1) / 2) {
             throw new IllegalArgumentException("Número de arestas excede o máximo permitido.");
         }
