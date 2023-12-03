@@ -4,6 +4,7 @@ public class App {
     public static void main(String[] args) {
         Grafo grafo = new Grafo(6);
         Naive metodoNeive = new Naive();
+        Gerador gerador = new Gerador();
 
         grafo.adicionarAresta(0, 1);
         grafo.adicionarAresta(1, 2);
@@ -26,5 +27,9 @@ public class App {
         Fleury fleury = new Fleury(grafo);
         fleury.encontrarCaminhoEuleriano();
 
+        Grafo aux;
+        aux = gerador.eulerianoAleatorio(100);
+        aux.imprimirListaAdjacencia();
+        System.out.println(aux.verificarEureliano());
     }
 }

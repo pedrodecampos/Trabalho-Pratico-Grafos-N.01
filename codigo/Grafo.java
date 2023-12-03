@@ -76,6 +76,7 @@ public class Grafo {
             for (int vizinho : listaAdjacencia.get(i)) {
                 System.out.print(vizinho + " ");
             }
+            System.out.println();
         }
     }
 }
