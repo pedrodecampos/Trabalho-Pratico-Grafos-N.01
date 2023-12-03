@@ -1,8 +1,6 @@
 import java.util.ArrayList;
-import java.util.LinkedList;
 import java.util.List;
 
-import javax.swing.text.html.HTMLDocument.Iterator;
 
 public class Fleury {
 
@@ -12,14 +10,12 @@ public class Fleury {
         this.grafo = grafo;
     }
 
-
     private boolean isArestaValida(int u, int v) {
         return grafo.getListaAdjacencia().get(u).size() != 0 && grafo.getListaAdjacencia().get(v).size() != 0;
     }
 
     private boolean isPonte(int u, int v) {
         Naive naive = new Naive();
-        Tarjan tarjan = new Tarjan();
 
         if (u == 0) {
             grafo.getListaAdjacencia().get(u).remove((Integer) v);
@@ -55,18 +51,23 @@ public class Fleury {
     }
 
     private void DFS(int v) {
-    System.out.print(v + " / ");
+        System.out.print(v + " / ");
 
-    List<Integer> vizinhos = new ArrayList<>(grafo.getListaAdjacencia().get(v));
+        List<Integer> vizinhos = new ArrayList<>(grafo.getListaAdjacencia().get(v));
 
-    for (int neighbor : vizinhos) {
-        if (isArestaValida(v, neighbor) && !isPonte(v, neighbor)) {
-            removerAresta(v, neighbor);
-            DFS(neighbor);
+        if (vizinhos.size() == 1) {
+            int proxAresta = vizinhos.get(0);
+            removerAresta(v, proxAresta);
+            DFS(proxAresta);
+        } else {
+            for (int neighbor : vizinhos) {
+                if (isArestaValida(v, neighbor) && !isPonte(v, neighbor)) {
+                    removerAresta(v, neighbor);
+                    DFS(neighbor);
+                }
+            }
         }
     }
-}
-
 
     public void encontrarCaminhoEuleriano() {
         int oddDegreeCount = 0;
