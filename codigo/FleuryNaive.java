@@ -1,4 +1,5 @@
 import java.util.ArrayList;
+import java.util.LinkedList;
 import java.util.List;
 
 public class FleuryNaive {
@@ -21,19 +22,27 @@ public class FleuryNaive {
     private boolean verificarConectividade() {
         Naive naive = new Naive();
 
+        // Fazemos uma cópia do grafo original para não modificar o estado durante o
+        // loop
+        Grafo copiaGrafo = new Grafo(grafo.getNumVertices());
         for (int i = 0; i < grafo.getNumVertices(); i++) {
-            List<Integer> arestas = new ArrayList<>(grafo.getListaAdjacencia().get(i));
+            copiaGrafo.getListaAdjacencia().add(new LinkedList<>(grafo.getListaAdjacencia().get(i)));
+        }
+
+        for (int i = 0; i < copiaGrafo.getNumVertices(); i++) {
+            List<Integer> arestas = copiaGrafo.getListaAdjacencia().get(i);
             for (int neighbor : arestas) {
                 if (i <= neighbor) {
                     // Remover aresta (i, neighbor)
-                    removerAresta(i, neighbor);
-                    
+                    copiaGrafo.getListaAdjacencia().get(i).remove((Integer) neighbor);
+                    copiaGrafo.getListaAdjacencia().get(neighbor).remove((Integer) i);
+
                     // Verificar se é conexo
-                    boolean conectado = naive.conectividade(grafo);
+                    boolean conectado = naive.conectividade(copiaGrafo);
 
                     // Restaurar a aresta para não modificar o grafo original
-                    grafo.getListaAdjacencia().get(i).add(neighbor);
-                    grafo.getListaAdjacencia().get(neighbor).add(i);
+                    copiaGrafo.getListaAdjacencia().get(i).add(neighbor);
+                    copiaGrafo.getListaAdjacencia().get(neighbor).add(i);
 
                     if (!conectado) {
                         return false; // A aresta (i, neighbor) é uma ponte
@@ -60,11 +69,11 @@ public class FleuryNaive {
             DFS(proxAresta);
         } else {
             for (int neighbor : vizinhos) {
-            if (isArestaValida(v, neighbor)) {
-                removerAresta(v, neighbor);
-                DFS(neighbor);
+                if (isArestaValida(v, neighbor)) {
+                    removerAresta(v, neighbor);
+                    DFS(neighbor);
+                }
             }
-        }
         }
     }
 
