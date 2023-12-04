@@ -36,7 +36,7 @@ public class FleuryTarjan {
     }
 
     private void DFS(int v) {
-        System.out.print(v + " / ");
+        System.out.print(v + "/");
 
         List<Integer> vizinhos = new ArrayList<>(grafo.getListaAdjacencia().get(v));
 
